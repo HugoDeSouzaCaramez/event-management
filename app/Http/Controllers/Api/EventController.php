@@ -15,7 +15,9 @@ class EventController extends Controller
     public function index()
     {
         //laravel já sabe automaticamente que tipo de formato de dados deve retornas
-        return EventResource::collection(Event::with('user')->get());
+        return EventResource::collection(
+            Event::with('user')->paginate()
+        );
     }
 
     /**
