@@ -14,10 +14,33 @@ class EventController extends Controller
      */
     public function index()
     {
+        $query = Event::query();
+        $relations = ['user','attendees','attendees.user'];
+
+        foreach ($relations as $relation) {
+            $query->when(
+                $this->shouldIncludeRelation($relation),
+                fn($q) => $q->with($relation)
+            );
+        }
         //laravel já sabe automaticamente que tipo de formato de dados deve retornas
         return EventResource::collection(
-            Event::with('user')->paginate()
+            $query->latest()->paginate()
         );
+    }
+
+    protected function shouldIncludeRelation(string $relation): bool
+    {
+        $include = request()->query('include');
+
+
+        if (!$include) {
+            return false;
+        }
+
+        $relations = array_map('trim', explode(',', $include));
+
+        return in_array($relation, $relations);
     }
 
     /**

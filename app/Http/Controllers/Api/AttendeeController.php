@@ -28,7 +28,7 @@ class AttendeeController extends Controller
      */
     public function store(Request $request, Event $event)
     {
-        $attendee = $ $event->attendees()->create([
+        $attendee = $event->attendees()->create([
             'user_id' => 1
         ]);
 
@@ -54,7 +54,7 @@ class AttendeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event, Attendee $attendee)
+    public function destroy(string $event, Attendee $attendee)
     {
         $attendee->delete();
 
