@@ -25,14 +25,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('update-event', function ($user, Event $event) {
+        /*Gate::define('update-event', function ($user, Event $event) {
             return $event->user->id === $user->id;
         });
 
         Gate::define('delete-attendee', function ($user, Event $event, Attendee $attendee) {
             return $event->user->id === $user->id ||
             $attendee->user->id === $user->id;
-        });
+        });*/
 
     }
 }
